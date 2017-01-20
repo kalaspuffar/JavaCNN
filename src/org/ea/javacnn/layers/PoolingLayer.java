@@ -7,7 +7,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Created by woden on 2017-01-19.
+ * This layer will reduce the dataset by creating a smaller zoomed out version. In essence you take a cluster of pixels take the sum of them and put the result in the reduced position of the new image.
+ *
+ * @author Daniel Persson (mailto.woden@gmail.com)
  */
 public class PoolingLayer implements Layer {
 

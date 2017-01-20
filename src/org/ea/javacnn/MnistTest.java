@@ -7,6 +7,11 @@ import org.ea.javacnn.trainers.Trainer;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * This a test network to try the network on the [Mnist dataset](https://www.google.se/url?sa=t&rct=j&q=&esrc=s&source=web&cd=1&cad=rja&uact=8&ved=0ahUKEwjyh9HvmNDRAhVCFCwKHV4ZAoAQFggdMAA&url=http%3A%2F%2Fyann.lecun.com%2Fexdb%2Fmnist%2F&usg=AFQjCNE_qG4M_MMtHWJVy-yfTAYhpmk0qQ&sig2=frJ3kBj3sW2pr2PxkbFmVw&bvm=bv.144224172,d.bGg)
+ *
+ * @author Daniel Persson (mailto.woden@gmail.com)
+ */
 public class MnistTest {
 
     public static void main(String[] argv) {

@@ -7,6 +7,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
+ * Neurons in a fully connected layer have full connections to all activations in the previous layer, as seen in regular Neural Networks. Their activations can hence be computed with a matrix multiplication followed by a bias offset.
+ *
+ * @author Daniel Persson (mailto.woden@gmail.com)
  */
 public class FullyConnectedLayer implements Layer {
     private int num_neurons;

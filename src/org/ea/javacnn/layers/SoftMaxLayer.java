@@ -7,7 +7,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Created by woden on 2017-01-19.
+ * This layer will squash the result of the activations in the fully connected layer and give you a value of 0 to 1 for all output activations.
+ *
+ * @author Daniel Persson (mailto.woden@gmail.com)
  */
 public class SoftMaxLayer implements Layer {
 
