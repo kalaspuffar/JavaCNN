@@ -7,7 +7,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * This layer normalize the result from the convolution layer so all weight values are positive, this will help the learning process and shape the result.
+ * This layer normalize the result from the convolution layer so all
+ * weight values are positive, this will help the learning process and
+ * shape the result.
  *
  * @author Daniel Persson (mailto.woden@gmail.com)
  */

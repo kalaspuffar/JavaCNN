@@ -3,7 +3,10 @@ package org.ea.javacnn.trainers;
 import org.ea.javacnn.JavaCNN;
 
 /**
- * Created by woden on 2017-01-19.
+ * The adaptive gradient trainer will over time sum up the square of
+ * the gradient and use it to change the weights.
+ *
+ * @author Daniel Persson (mailto.woden@gmail.com)
  */
 public class AdaGradTrainer implements Trainer {
 

@@ -7,7 +7,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * This layer uses different filters to find attributes of the data that affects the result. As an example there could be a filter to find horizontal edges in an image.
+ * This layer uses different filters to find attributes of the data that
+ * affects the result. As an example there could be a filter to find
+ * horizontal edges in an image.
  *
  * @author Daniel Persson (mailto.woden@gmail.com)
  */

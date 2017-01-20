@@ -5,7 +5,8 @@ import org.ea.javacnn.layers.Layer;
 import java.util.List;
 
 /**
- *
+ * A network class holding the layers and some helper functions
+ * for training and validation.
  *
  * @author Daniel Persson (mailto.woden@gmail.com)
  */

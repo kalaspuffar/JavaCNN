@@ -6,7 +6,8 @@ import org.ea.javacnn.data.DataBlock;
 import java.util.List;
 
 /**
- * A convolution neural network is built of layers that the data traverses back and forth in order to predict what the network sees in the data.
+ * A convolution neural network is built of layers that the data traverses
+ * back and forth in order to predict what the network sees in the data.
  *
  * @author Daniel Persson (mailto.woden@gmail.com)
  */
