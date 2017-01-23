@@ -1,7 +1,8 @@
 package org.ea.javacnn;
 
+import org.ea.javacnn.data.OutputDefinition;
 import org.ea.javacnn.layers.*;
-import org.ea.javacnn.trainers.SGDTrainer;
+import org.ea.javacnn.trainers.AdaGradTrainer;
 import org.ea.javacnn.trainers.Trainer;
 
 import java.util.ArrayList;
@@ -28,18 +29,19 @@ public class MnistTest {
         boolean random_position = false;
 
         List<Layer> layers = new ArrayList<Layer>();
-        layers.add(new InputLayer(24, 24, 1));
-        layers.add(new ConvolutionLayer(5, 8, 1, 2));
-        layers.add(new LocalResponseNormalizationLayer());
-        layers.add(new PoolingLayer(2, 2));
-        layers.add(new ConvolutionLayer(5, 16, 1, 2));
-        layers.add(new LocalResponseNormalizationLayer());
-        layers.add(new PoolingLayer(3,3));
-        layers.add(new FullyConnectedLayer(10));
-        layers.add(new SoftMaxLayer(10));
+        OutputDefinition def = new OutputDefinition();
+        layers.add(new InputLayer(def, 24, 24, 1));
+        layers.add(new ConvolutionLayer(def, 5, 8, 1, 2));
+        layers.add(new LocalResponseNormalizationLayer(def));
+        layers.add(new PoolingLayer(def, 2, 2));
+        layers.add(new ConvolutionLayer(def, 5, 16, 1, 2));
+        layers.add(new LocalResponseNormalizationLayer(def));
+        layers.add(new PoolingLayer(def, 3,3));
+        layers.add(new FullyConnectedLayer(def, 10));
+        layers.add(new SoftMaxLayer(def, 10));
 
         JavaCNN net = new JavaCNN(layers);
-        Trainer trainer = new SGDTrainer(net, "adadelta", 20, 0.001f);
+        Trainer trainer = new AdaGradTrainer(net, 20, 0.001f);
 
     }
 }

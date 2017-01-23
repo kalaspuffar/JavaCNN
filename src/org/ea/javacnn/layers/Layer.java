@@ -12,7 +12,7 @@ import java.util.List;
  * @author Daniel Persson (mailto.woden@gmail.com)
  */
 public interface Layer {
-    void forward(DataBlock db, boolean training);
+    DataBlock forward(DataBlock db, boolean training);
     void backward();
     List<BackPropResult> getBackPropagationResult();
 }

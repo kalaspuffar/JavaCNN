@@ -2,6 +2,7 @@ package org.ea.javacnn.layers;
 
 import org.ea.javacnn.data.BackPropResult;
 import org.ea.javacnn.data.DataBlock;
+import org.ea.javacnn.data.OutputDefinition;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -16,13 +17,13 @@ public class SoftMaxLayer implements Layer {
 
     private int num_classes;
 
-    public SoftMaxLayer(int num_classes) {
+    public SoftMaxLayer(OutputDefinition def, int num_classes) {
         this.num_classes = num_classes;
     }
 
     @Override
-    public void forward(DataBlock db, boolean training) {
-
+    public DataBlock forward(DataBlock db, boolean training) {
+        return null;
     }
 
     @Override

@@ -2,6 +2,7 @@ package org.ea.javacnn.layers;
 
 import org.ea.javacnn.data.BackPropResult;
 import org.ea.javacnn.data.DataBlock;
+import org.ea.javacnn.data.OutputDefinition;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -18,14 +19,14 @@ public class PoolingLayer implements Layer {
     private int sx;
     private int stride;
 
-    public PoolingLayer(int sx, int stride) {
+    public PoolingLayer(OutputDefinition def, int sx, int stride) {
         this.sx = sx;
         this.stride = stride;
     }
 
     @Override
-    public void forward(DataBlock db, boolean training) {
-
+    public DataBlock forward(DataBlock db, boolean training) {
+        return null;
     }
 
     @Override

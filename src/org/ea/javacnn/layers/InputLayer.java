@@ -2,6 +2,7 @@ package org.ea.javacnn.layers;
 
 import org.ea.javacnn.data.BackPropResult;
 import org.ea.javacnn.data.DataBlock;
+import org.ea.javacnn.data.OutputDefinition;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -18,20 +19,21 @@ import java.util.List;
  * @author Daniel Persson (mailto.woden@gmail.com)
  */
 public class InputLayer implements Layer {
+    private DataBlock in_act;
+    private DataBlock out_act;
 
-    private int out_sx;
-    private int out_sy;
-    private int out_depth;
 
-    public InputLayer(int out_sx, int out_sy, int out_depth) {
-        this.out_sx = out_sx;
-        this.out_sy = out_sy;
-        this.out_depth = out_depth;
+    public InputLayer(OutputDefinition def, int out_sx, int out_sy, int out_depth) {
+        def.setOutX(out_sx);
+        def.setOutY(out_sy);
+        def.setDepth(out_depth);
     }
 
     @Override
-    public void forward(DataBlock db, boolean training) {
-
+    public DataBlock forward(DataBlock db, boolean training) {
+        this.in_act = db;
+        this.out_act = db;
+        return this.out_act;
     }
 
     @Override
