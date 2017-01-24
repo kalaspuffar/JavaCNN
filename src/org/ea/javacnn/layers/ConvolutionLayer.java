@@ -100,48 +100,40 @@ public class ConvolutionLayer implements Layer {
 
     @Override
     public void backward() {
+        DataBlock db = this.in_act;
+        db.clearGradient(); // zero out gradient wrt bottom data, we're about to fill it
+        int V_sx = db.getSX();
+        int V_sy = db.getSY();
+        int xy_stride = this.stride;
 
-        /*
+        for(int d=0;d<this.out_depth;d++) {
+            DataBlock f = this.filters.get(d);
+            int y = -this.padding;
+            for(var ay=0; ay<this.out_sy; y+=xy_stride,ay++) {  // xy_stride
+                int x = -this.padding;
+                for(var ax=0; ax<this.out_sx; x+=xy_stride,ax++) {  // xy_stride
 
-      var V = this.in_act;
-      V.dw = global.zeros(V.w.length); // zero out gradient wrt bottom data, we're about to fill it
-
-      var V_sx = V.sx |0;
-      var V_sy = V.sy |0;
-      var xy_stride = this.stride |0;
-
-      for(var d=0;d<this.out_depth;d++) {
-        var f = this.filters[d];
-        var x = -this.pad |0;
-        var y = -this.pad |0;
-        for(var ay=0; ay<this.out_sy; y+=xy_stride,ay++) {  // xy_stride
-          x = -this.pad |0;
-          for(var ax=0; ax<this.out_sx; x+=xy_stride,ax++) {  // xy_stride
-
-            // convolve centered at this particular location
-            var chain_grad = this.out_act.get_grad(ax,ay,d); // gradient from above, from chain rule
-            for(var fy=0;fy<f.sy;fy++) {
-              var oy = y+fy; // coordinates in the original input array coordinates
-              for(var fx=0;fx<f.sx;fx++) {
-                var ox = x+fx;
-                if(oy>=0 && oy<V_sy && ox>=0 && ox<V_sx) {
-                  for(var fd=0;fd<f.depth;fd++) {
-                    // avoid function call overhead (x2) for efficiency, compromise modularity :(
-                    var ix1 = ((V_sx * oy)+ox)*V.depth+fd;
-                    var ix2 = ((f.sx * fy)+fx)*f.depth+fd;
-                    f.dw[ix2] += V.w[ix1]*chain_grad;
-                    V.dw[ix1] += f.w[ix2]*chain_grad;
-                  }
+                    // convolve centered at this particular location
+                    float chain_grad = this.out_act.getGradient(ax,ay,d); // gradient from above, from chain rule
+                    for(int fy=0;fy<f.getSY();fy++) {
+                        int oy = y+fy; // coordinates in the original input array coordinates
+                        for(int fx=0;fx<f.getSX();fx++) {
+                            int ox = x+fx;
+                            if(oy>=0 && oy<V_sy && ox>=0 && ox<V_sx) {
+                                for(var fd=0;fd<f.getDepth();fd++) {
+                                    // avoid function call overhead (x2) for efficiency, compromise modularity :(
+                                    var ix1 = ((V_sx * oy)+ox)*V.getDepth()+fd;
+                                    var ix2 = ((f.getSY() * fy)+fx)*f.getDepth()+fd;
+                                    f.addGradient(ix2, V.getWeight(ix1)*chain_grad);
+                                    V.addGradient(ix1, f.getWeight(ix2)*chain_grad);
+                                }
+                            }
+                        }
+                    }
+                    this.biases.addGradient(d, chain_grad);
                 }
-              }
             }
-            this.biases.dw[d] += chain_grad;
-          }
         }
-      }
-
-         */
-
     }
 
     @Override

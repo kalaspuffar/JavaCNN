@@ -53,8 +53,8 @@ public class DataBlock {
         return depth;
     }
 
-    public double getWeight(int idx) {
-        return this.w[idx];
+    public double getWeight(int ix) {
+        return this.w[ix];
     }
 
     public double getWeight(int x, int y, int depth) {
@@ -84,6 +84,10 @@ public class DataBlock {
 
     public void addGradient(int x, int y, int depth, double val) {
         int ix = ((this.sx * y) + x) * this.depth + depth;
+        this.addGradient(ix, val);
+    }
+
+    public void addGradient(int ix, double val) {
         this.dw[ix] += val;
     }
 
@@ -97,6 +101,10 @@ public class DataBlock {
             db.w[i] = this.w[i];
         }
         return db;
+    }
+
+    public void clearGradient() {
+        Arrays.fill(this.dw, 0);
     }
 
     public void addFrom(DataBlock db) {
