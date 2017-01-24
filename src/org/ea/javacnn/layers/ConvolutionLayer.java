@@ -15,8 +15,8 @@ import java.util.List;
  * @author Daniel Persson (mailto.woden@gmail.com)
  */
 public class ConvolutionLayer implements Layer {
-    private final float l1_decay_mul = 0.0f;
-    private final float l2_decay_mul = 1.0f;
+    private double l1_decay_mul = 0.0;
+    private double l2_decay_mul = 1.0;
 
     private DataBlock in_act;
     private DataBlock out_act;
@@ -57,6 +57,9 @@ public class ConvolutionLayer implements Layer {
         }
         this.biases = new DataBlock(1, 1, this.out_depth, BIAS_PREF);
 
+        def.setOutX(out_sx);
+        def.setOutY(out_sy);
+        def.setDepth(out_depth);
     }
 
     @Override
@@ -109,23 +112,23 @@ public class ConvolutionLayer implements Layer {
         for(int d=0;d<this.out_depth;d++) {
             DataBlock f = this.filters.get(d);
             int y = -this.padding;
-            for(var ay=0; ay<this.out_sy; y+=xy_stride,ay++) {  // xy_stride
+            for(int ay=0; ay<this.out_sy; y+=xy_stride,ay++) {  // xy_stride
                 int x = -this.padding;
-                for(var ax=0; ax<this.out_sx; x+=xy_stride,ax++) {  // xy_stride
+                for(int ax=0; ax<this.out_sx; x+=xy_stride,ax++) {  // xy_stride
 
                     // convolve centered at this particular location
-                    float chain_grad = this.out_act.getGradient(ax,ay,d); // gradient from above, from chain rule
+                    double chain_grad = this.out_act.getGradient(ax,ay,d); // gradient from above, from chain rule
                     for(int fy=0;fy<f.getSY();fy++) {
                         int oy = y+fy; // coordinates in the original input array coordinates
                         for(int fx=0;fx<f.getSX();fx++) {
                             int ox = x+fx;
                             if(oy>=0 && oy<V_sy && ox>=0 && ox<V_sx) {
-                                for(var fd=0;fd<f.getDepth();fd++) {
+                                for(int fd=0;fd<f.getDepth();fd++) {
                                     // avoid function call overhead (x2) for efficiency, compromise modularity :(
-                                    var ix1 = ((V_sx * oy)+ox)*V.getDepth()+fd;
-                                    var ix2 = ((f.getSY() * fy)+fx)*f.getDepth()+fd;
-                                    f.addGradient(ix2, V.getWeight(ix1)*chain_grad);
-                                    V.addGradient(ix1, f.getWeight(ix2)*chain_grad);
+                                    int ix1 = ((V_sx * oy)+ox)*db.getDepth()+fd;
+                                    int ix2 = ((f.getSY() * fy)+fx)*f.getDepth()+fd;
+                                    f.addGradient(ix2, db.getWeight(ix1)*chain_grad);
+                                    db.addGradient(ix1, f.getWeight(ix2)*chain_grad);
                                 }
                             }
                         }
@@ -139,15 +142,13 @@ public class ConvolutionLayer implements Layer {
     @Override
     public List<BackPropResult> getBackPropagationResult() {
 
-        /*
-        var response = [];
-      for(var i=0;i<this.out_depth;i++) {
-        response.push({params: this.filters[i].w, grads: this.filters[i].dw, l2_decay_mul: this.l2_decay_mul, l1_decay_mul: this.l1_decay_mul});
-      }
-      response.push({params: this.biases.w, grads: this.biases.dw, l1_decay_mul: 0.0, l2_decay_mul: 0.0});
-      return response;
-         */
+        List<BackPropResult> results = new ArrayList<BackPropResult>();
 
-        return new ArrayList<BackPropResult>();
+        for(int i=0;i<this.out_depth;i++) {
+            results.add(new BackPropResult(this.filters.get(i).getWeights(), this.filters.get(i).getGradients(), this.l2_decay_mul, this.l1_decay_mul));
+        }
+        results.add(new BackPropResult(this.biases.getWeights(), this.biases.getGradients(), 0.0, 0.0));
+
+        return results;
     }
 }

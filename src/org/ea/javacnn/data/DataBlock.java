@@ -64,6 +64,10 @@ public class DataBlock {
 
     public void setWeight(int x, int y, int depth, double val) {
         int ix = ((this.sx * y) + x) * this.depth + depth;
+        setWeight(ix, val);
+    }
+
+    public void setWeight(int ix, double val) {
         this.w[ix] = val;
     }
 
@@ -105,6 +109,14 @@ public class DataBlock {
 
     public void clearGradient() {
         Arrays.fill(this.dw, 0);
+    }
+
+    public double[] getWeights() {
+        return w;
+    }
+
+    public double[] getGradients() {
+        return dw;
     }
 
     public void addFrom(DataBlock db) {
