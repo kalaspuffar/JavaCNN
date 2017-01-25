@@ -83,8 +83,13 @@ public class DataBlock {
 
     public void setGradient(int x, int y, int depth, double val) {
         int ix = ((this.sx * y) + x) * this.depth + depth;
+        setGradient(ix, val);
+    }
+
+    public void setGradient(int ix, double val) {
         this.dw[ix] = val;
     }
+
 
     public void addGradient(int x, int y, int depth, double val) {
         int ix = ((this.sx * y) + x) * this.depth + depth;

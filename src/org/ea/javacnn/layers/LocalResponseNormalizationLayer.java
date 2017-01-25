@@ -17,14 +17,22 @@ import java.util.List;
 public class LocalResponseNormalizationLayer implements Layer {
     private int out_depth, out_sx, out_sy;
 
+    /*
+     The constants k, n, alpha and beta are hyper-parameters whose
+       values are determined using a validation set; we used
+       k = 2, n = 5, alpha = 10^-4, beta = 0.75
+
+       quote from http://www.cs.toronto.edu/~fritz/absps/imagenet.pdf
+    */
+
+    private final double k = 2.0;
+    private final double n = 5.0;
+    private final double alpha = 0.0001;
+    private final double beta = 0.75;
+
     private DataBlock in_act, out_act, S_cache_;
 
     public LocalResponseNormalizationLayer(OutputDefinition def) {
-        this.k = opt.k;
-        this.n = opt.n;
-        this.alpha = opt.alpha;
-        this.beta = opt.beta;
-
         // computed
         this.out_sx = def.getOutX();
         this.out_sy = def.getOutY();

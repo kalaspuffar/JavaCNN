@@ -33,10 +33,10 @@ public class MnistTest {
         layers.add(new InputLayer(def, 24, 24, 1));
         layers.add(new ConvolutionLayer(def, 5, 8, 1, 2));
         layers.add(new LocalResponseNormalizationLayer(def));
-        layers.add(new PoolingLayer(def, 2, 2));
+        layers.add(new PoolingLayer(def, 2, 2, 2));
         layers.add(new ConvolutionLayer(def, 5, 16, 1, 2));
         layers.add(new LocalResponseNormalizationLayer(def));
-        layers.add(new PoolingLayer(def, 3,3));
+        layers.add(new PoolingLayer(def, 3,3, 2));
         layers.add(new FullyConnectedLayer(def, 10));
         layers.add(new SoftMaxLayer(def, 10));
 
