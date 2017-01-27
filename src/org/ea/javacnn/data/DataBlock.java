@@ -72,13 +72,13 @@ public class DataBlock {
         return this.w[ix];
     }
 
+    public void setWeight(int ix, double val) {
+        this.w[ix] = val;
+    }
+
     public void setWeight(int x, int y, int depth, double val) {
         int ix = ((this.sx * y) + x) * this.depth + depth;
         setWeight(ix, val);
-    }
-
-    public void setWeight(int ix, double val) {
-        this.w[ix] = val;
     }
 
     public void addWeight(int x, int y, int depth, double val) {

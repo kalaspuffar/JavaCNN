@@ -42,7 +42,6 @@ public class LocalResponseNormalizationLayer implements Layer {
         if(this.n%2 == 0) {
             System.out.println("WARNING n should be odd for LRN layer");
         }
-
     }
 
     @Override
@@ -82,7 +81,6 @@ public class LocalResponseNormalizationLayer implements Layer {
         // evaluate gradient wrt data
         DataBlock V = this.in_act; // we need to set dw of this
         V.clearGradient();
-        DataBlock A = this.out_act; // computed in forward pass
 
         int n2 = (int)Math.floor(this.n/2);
         for(int x=0;x<V.getSX();x++) {

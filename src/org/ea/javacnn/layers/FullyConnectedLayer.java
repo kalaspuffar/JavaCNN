@@ -22,7 +22,7 @@ public class FullyConnectedLayer implements Layer {
     private DataBlock in_act;
     private DataBlock out_act;
 
-    private final float BIAS_PREF = 0.1f;
+    private final float BIAS_PREF = 0.0f;
 
     private int out_depth, out_sx, out_sy;
     private int num_inputs;
