@@ -1,7 +1,11 @@
 package org.ea.javacnn;
 
+import org.ea.javacnn.data.BackPropResult;
+import org.ea.javacnn.data.DataBlock;
 import org.ea.javacnn.layers.Layer;
+import org.ea.javacnn.layers.LossLayer;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -22,15 +26,15 @@ public class JavaCNN {
      The trainer class passes is_training = true, but when this function is
      called from outside (not from the trainer), it defaults to prediction mode
     */
-    public void forward(DataBlock db, boolean training) {
-      DataBlock act = this.layers.get(0).forward(V, training);
-      for(var i=1;i<this.layers.length;i++) {
+    public DataBlock forward(DataBlock db, boolean training) {
+      DataBlock act = this.layers.get(0).forward(db, training);
+      for(int i=1;i<this.layers.size();i++) {
         act = this.layers.get(i).forward(act, training);
       }
       return act;
     }
 
-    public double getCostLoss(DataBlock db, double y) {
+    public double getCostLoss(DataBlock db, int y) {
       this.forward(db, false);
       int N = this.layers.size();
       double loss = ((LossLayer)this.layers.get(N-1)).backward(y);
@@ -38,10 +42,10 @@ public class JavaCNN {
     }
 
     // backprop: compute gradients wrt all parameters
-    public double backward(double y) {
+    public double backward(int y) {
       int N = this.layers.size();
       double loss = ((LossLayer)this.layers.get(N-1)).backward(y);
-      for(var i=N-2;i>=0;i--) { // first layer assumed input
+      for(int i=N-2;i>=0;i--) { // first layer assumed input
         this.layers.get(i).backward();
       }
       return loss;

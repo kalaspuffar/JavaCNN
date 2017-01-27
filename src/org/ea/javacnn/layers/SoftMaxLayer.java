@@ -84,4 +84,9 @@ public class SoftMaxLayer extends LossLayer {
     public List<BackPropResult> getBackPropagationResult() {
         return new ArrayList<BackPropResult>();
     }
+
+    @Override
+    public DataBlock getOutAct() {
+        return this.out_act;
+    }
 }
