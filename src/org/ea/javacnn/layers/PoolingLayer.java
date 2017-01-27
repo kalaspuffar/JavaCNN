@@ -68,7 +68,8 @@ public class PoolingLayer implements Layer {
 
                     // convolve centered at this particular location
                     double a = -99999; // hopefully small enough ;\
-                    int winx=-1,winy=-1;
+                    int winx=-1;
+                    int winy=-1;
                     for(int fx=0;fx<this.sx;fx++) {
                         for(int fy=0;fy<this.sy;fy++) {
                             int oy = y+fy;
@@ -78,7 +79,11 @@ public class PoolingLayer implements Layer {
                                 // perform max pooling and store pointers to where
                                 // the max came from. This will speed up backprop
                                 // and can help make nice visualizations in future
-                                if(v > a) { a = v; winx=ox; winy=oy;}
+                                if(v > a) {
+                                    a = v;
+                                    winx=ox;
+                                    winy=oy;
+                                }
                             }
                         }
                     }
