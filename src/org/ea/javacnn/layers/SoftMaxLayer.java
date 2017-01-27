@@ -27,6 +27,10 @@ public class SoftMaxLayer extends LossLayer {
         this.out_depth = this.num_inputs;
         this.out_sx = 1;
         this.out_sy = 1;
+
+        def.setOutX(out_sx);
+        def.setOutY(out_sy);
+        def.setDepth(out_depth);
     }
 
     @Override

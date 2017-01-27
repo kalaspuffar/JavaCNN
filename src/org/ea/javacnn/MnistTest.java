@@ -46,7 +46,7 @@ public class MnistTest {
         JavaCNN net = new JavaCNN(layers);
         Trainer trainer = new AdaGradTrainer(net, 20, 0.001f);
 
-        MnistReader mr = new MnistReader("mnist/train-labels.idx1-ubyte", "mnist/train-images.idx3-ubyte");
+        MnistReader mr = new MnistReader("mnist/train-labels-idx1-ubyte", "mnist/train-images-idx3-ubyte");
 
         try {
             for (int i = 0; i < mr.size(); i++) {

@@ -47,6 +47,10 @@ public class PoolingLayer implements Layer {
         this.switchy = new int[this.out_sx*this.out_sy*this.out_depth];
         Arrays.fill(switchx, 0);
         Arrays.fill(switchy, 0);
+
+        def.setOutX(out_sx);
+        def.setOutY(out_sy);
+        def.setDepth(out_depth);
     }
 
     @Override
