@@ -36,7 +36,7 @@ public class AdaGradTrainer implements Trainer {
         this.k = 0; // iteration counter
     }
 
-    private TrainResult train(DataBlock x, int y) {
+    public TrainResult train(DataBlock x, int y) {
         long start = new Date().getTime();
         this.net.forward(x, true); // also set the flag that lets the net know we're just training
         long end = new Date().getTime();

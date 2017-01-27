@@ -1,5 +1,8 @@
 package org.ea.javacnn.data;
 
+import javax.imageio.ImageIO;
+import java.awt.image.BufferedImage;
+import java.io.File;
 import java.util.Arrays;
 import java.util.Random;
 
@@ -39,6 +42,13 @@ public class DataBlock {
             }
         }
         Arrays.fill(this.dw, 0);
+    }
+
+    public void addImageData(byte[] imgData) {
+        // prepare the input: get pixels and normalize them
+        for(int i=0;i<imgData.length;i++) {
+            w[i] = imgData[i]/255.0-0.5; // normalize image pixels to [-0.5, 0.5]
+        }
     }
 
     public int getSX() {

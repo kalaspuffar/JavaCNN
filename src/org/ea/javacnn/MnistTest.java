@@ -1,7 +1,10 @@
 package org.ea.javacnn;
 
+import org.ea.javacnn.data.DataBlock;
 import org.ea.javacnn.data.OutputDefinition;
+import org.ea.javacnn.data.TrainResult;
 import org.ea.javacnn.layers.*;
+import org.ea.javacnn.readers.MnistReader;
 import org.ea.javacnn.trainers.AdaGradTrainer;
 import org.ea.javacnn.trainers.Trainer;
 
@@ -43,5 +46,17 @@ public class MnistTest {
         JavaCNN net = new JavaCNN(layers);
         Trainer trainer = new AdaGradTrainer(net, 20, 0.001f);
 
+        MnistReader mr = new MnistReader("mnist/train-labels.idx1-ubyte", "mnist/train-images.idx3-ubyte");
+
+        try {
+            for (int i = 0; i < mr.size(); i++) {
+                DataBlock db = new DataBlock(28, 28, 1, 0);
+                db.addImageData(mr.readNextImage());
+                TrainResult tr = trainer.train(db, mr.readNextLabel());
+                System.out.println(tr.toString());
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 }

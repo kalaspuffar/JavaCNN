@@ -40,6 +40,7 @@ public class FullyConnectedLayer implements Layer {
 
         // initializations
         float bias = BIAS_PREF;
+        this.filters = new ArrayList<DataBlock>();
         for(int i=0;i<this.out_depth ;i++) {
             this.filters.add(new DataBlock(1, 1, this.num_inputs));
         }

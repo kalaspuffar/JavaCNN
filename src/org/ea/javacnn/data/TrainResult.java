@@ -17,4 +17,18 @@ public class TrainResult {
         this.softmax_loss = softmax_loss;
         this.loss = loss;
     }
+
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("Forward time: ");
+        sb.append(fwd_time);
+        sb.append("\n");
+        sb.append("Backward time: ");
+        sb.append(bwd_time);
+        sb.append("\n");
+        sb.append("loss: ");
+        sb.append(loss);
+        sb.append("\n");
+        return sb.toString();
+    }
 }
