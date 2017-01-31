@@ -37,17 +37,17 @@ public class AdaGradTrainer implements Trainer {
     }
 
     public TrainResult train(DataBlock x, int y) {
-        long start = new Date().getTime();
+//        long start = new Date().getTime();
         this.net.forward(x, true); // also set the flag that lets the net know we're just training
-        long end = new Date().getTime();
-        long fwd_time = end - start;
+//        long end = new Date().getTime();
+//        long fwd_time = end - start;
 
-        long backStart = new Date().getTime();
+//        long backStart = new Date().getTime();
         double cost_loss = this.net.backward(y);
         double l2_decay_loss = 0.0;
         double l1_decay_loss = 0.0;
-        long backEnd = new Date().getTime();
-        long bwd_time = backEnd - backStart;
+//        long backEnd = new Date().getTime();
+//        long bwd_time = backEnd - backStart;
 /*
         this.k++;
         if(this.k % this.batch_size == 0) {
@@ -100,6 +100,6 @@ public class AdaGradTrainer implements Trainer {
         // in future, TODO: have to completely redo the way loss is done around the network as currently
         // loss is a bit of a hack. Ideally, user should specify arbitrary number of loss functions on any layer
         // and it should all be computed correctly and automatically.
-        return new TrainResult(fwd_time, bwd_time, l1_decay_loss, l2_decay_loss, cost_loss, cost_loss, cost_loss + l1_decay_loss + l2_decay_loss);
+        return new TrainResult(0, 0, l1_decay_loss, l2_decay_loss, cost_loss, cost_loss, cost_loss + l1_decay_loss + l2_decay_loss);
     }
 }

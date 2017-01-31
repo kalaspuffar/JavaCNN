@@ -49,17 +49,21 @@ public class MnistTest {
         MnistReader mr = new MnistReader("mnist/train-labels-idx1-ubyte", "mnist/train-images-idx3-ubyte");
 
         try {
+            long start = System.currentTimeMillis();
+
             TrainResult tr = null;
+            DataBlock db = new DataBlock(28, 28, 1, 0);
             for(int j = 1; j < 501; j++) {
                 for (int i = 0; i < mr.size(); i++) {
-                    DataBlock db = new DataBlock(28, 28, 1, 0);
                     db.addImageData(mr.readNextImage());
                     tr = trainer.train(db, mr.readNextLabel());
                     if (i % 1000 == 0) {
-                        System.out.println("Pass " + j + " Read images: " + i);
+                        System.out.println((System.currentTimeMillis() - start) + " Pass " + j + " Read images: " + i);
                         System.out.println(tr.toString());
+                        start = System.currentTimeMillis();
                     }
                 }
+                mr.reset();
             }
             System.out.println(tr.toString());
         } catch (Exception e) {
