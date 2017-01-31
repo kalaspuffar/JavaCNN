@@ -111,11 +111,9 @@ public class PoolingLayer implements Layer {
             for(int ax=0; ax<this.out_sx; x+=this.stride,ax++) {
                 int y = -this.padding;
                 for(int ay=0; ay<this.out_sy; y+=this.stride,ay++) {
-
                     double chain_grad = this.out_act.getGradient(ax,ay,d);
                     V.addGradient(this.switchx[n], this.switchy[n], d, chain_grad);
                     n++;
-
                 }
             }
         }

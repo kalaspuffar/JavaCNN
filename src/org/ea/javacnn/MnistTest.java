@@ -36,10 +36,10 @@ public class MnistTest {
         layers.add(new InputLayer(def, 24, 24, 1));
         layers.add(new ConvolutionLayer(def, 5, 8, 1, 2));
         layers.add(new LocalResponseNormalizationLayer(def));
-        layers.add(new PoolingLayer(def, 2, 2, 2));
+        layers.add(new PoolingLayer(def, 2, 2, 0));
         layers.add(new ConvolutionLayer(def, 5, 16, 1, 2));
         layers.add(new LocalResponseNormalizationLayer(def));
-        layers.add(new PoolingLayer(def, 3,3, 2));
+        layers.add(new PoolingLayer(def, 3,3, 0));
         layers.add(new FullyConnectedLayer(def, 10));
         layers.add(new SoftMaxLayer(def, 10));
 
@@ -49,12 +49,19 @@ public class MnistTest {
         MnistReader mr = new MnistReader("mnist/train-labels-idx1-ubyte", "mnist/train-images-idx3-ubyte");
 
         try {
-            for (int i = 0; i < mr.size(); i++) {
-                DataBlock db = new DataBlock(28, 28, 1, 0);
-                db.addImageData(mr.readNextImage());
-                TrainResult tr = trainer.train(db, mr.readNextLabel());
-                System.out.println(tr.toString());
+            TrainResult tr = null;
+            for(int j = 1; j < 501; j++) {
+                for (int i = 0; i < mr.size(); i++) {
+                    DataBlock db = new DataBlock(28, 28, 1, 0);
+                    db.addImageData(mr.readNextImage());
+                    tr = trainer.train(db, mr.readNextLabel());
+                    if (i % 1000 == 0) {
+                        System.out.println("Pass " + j + " Read images: " + i);
+                        System.out.println(tr.toString());
+                    }
+                }
             }
+            System.out.println(tr.toString());
         } catch (Exception e) {
             e.printStackTrace();
         }

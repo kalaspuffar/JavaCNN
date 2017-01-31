@@ -48,7 +48,7 @@ public class AdaGradTrainer implements Trainer {
         double l1_decay_loss = 0.0;
         long backEnd = new Date().getTime();
         long bwd_time = backEnd - backStart;
-
+/*
         this.k++;
         if(this.k % this.batch_size == 0) {
 
@@ -95,7 +95,7 @@ public class AdaGradTrainer implements Trainer {
                 }
             }
         }
-
+*/
         // appending softmax_loss for backwards compatibility, but from now on we will always use cost_loss
         // in future, TODO: have to completely redo the way loss is done around the network as currently
         // loss is a bit of a hack. Ideally, user should specify arbitrary number of loss functions on any layer
