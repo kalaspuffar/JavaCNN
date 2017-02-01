@@ -5,6 +5,7 @@ import org.ea.javacnn.data.BackPropResult;
 import org.ea.javacnn.data.DataBlock;
 import org.ea.javacnn.data.TrainResult;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
@@ -33,22 +34,19 @@ public class AdaGradTrainer implements Trainer {
         this.momentum = 0.9;
         this.eps = 1e-8;
 
+        gsum = new ArrayList<double[]>();
+        xsum = new ArrayList<double[]>();
+
         this.k = 0; // iteration counter
     }
 
     public TrainResult train(DataBlock x, int y) {
-//        long start = new Date().getTime();
         this.net.forward(x, true); // also set the flag that lets the net know we're just training
-//        long end = new Date().getTime();
-//        long fwd_time = end - start;
 
-//        long backStart = new Date().getTime();
         double cost_loss = this.net.backward(y);
         double l2_decay_loss = 0.0;
         double l1_decay_loss = 0.0;
-//        long backEnd = new Date().getTime();
-//        long bwd_time = backEnd - backStart;
-/*
+
         this.k++;
         if(this.k % this.batch_size == 0) {
 
@@ -95,7 +93,7 @@ public class AdaGradTrainer implements Trainer {
                 }
             }
         }
-*/
+
         // appending softmax_loss for backwards compatibility, but from now on we will always use cost_loss
         // in future, TODO: have to completely redo the way loss is done around the network as currently
         // loss is a bit of a hack. Ideally, user should specify arbitrary number of loss functions on any layer
