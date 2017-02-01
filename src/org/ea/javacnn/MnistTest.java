@@ -20,17 +20,6 @@ import java.util.List;
 public class MnistTest {
 
     public static void main(String[] argv) {
-        String[] classes_txt = new String[] {"0","1","2","3","4","5","6","7","8","9"};
-        String dataset_name = "mnist";
-        int num_batches = 21; // 20 training batches, 1 test
-        int test_batch = 20;
-        int num_samples_per_batch = 3000;
-        int image_dimension = 28;
-        int image_channels = 1;
-        boolean use_validation_data = true;
-        boolean random_flip = false;
-        boolean random_position = false;
-
         List<Layer> layers = new ArrayList<Layer>();
         OutputDefinition def = new OutputDefinition();
         layers.add(new InputLayer(def, 24, 24, 1));
@@ -54,18 +43,21 @@ public class MnistTest {
             TrainResult tr = null;
             DataBlock db = new DataBlock(28, 28, 1, 0);
             for(int j = 1; j < 501; j++) {
+                double loss = 0;
                 for (int i = 0; i < mr.size(); i++) {
                     db.addImageData(mr.readNextImage());
                     tr = trainer.train(db, mr.readNextLabel());
-                    if (i % 1000 == 0) {
-                        System.out.println((System.currentTimeMillis() - start) + " Pass " + j + " Read images: " + i);
-                        System.out.println(tr.toString());
+                    loss += tr.getLoss();
+                    if (i != 0 && i % 1000 == 0) {
+                        System.out.println("Pass " + j + " Read images: " + i);
+                        System.out.println("Training time: "+(System.currentTimeMillis() - start));
+                        System.out.println("Loss: "+(loss / (double)i));
                         start = System.currentTimeMillis();
                     }
                 }
+                System.err.println("Loss: "+(loss / 60000.0));
                 mr.reset();
             }
-            System.out.println(tr.toString());
         } catch (Exception e) {
             e.printStackTrace();
         }

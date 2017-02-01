@@ -28,7 +28,7 @@ public class AdaGradTrainer implements Trainer {
         this.net = net;
 
         this.learning_rate = 0.01;
-        this.l1_decay = 0.0;
+        this.l1_decay = 0.001;
         this.l2_decay = l2_decay;
         this.batch_size = batch_size;
         this.momentum = 0.9;
