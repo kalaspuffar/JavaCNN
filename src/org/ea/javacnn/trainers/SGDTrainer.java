@@ -3,8 +3,14 @@ package org.ea.javacnn.trainers;
 import org.ea.javacnn.JavaCNN;
 
 /**
- * Created by danielp on 2/3/17.
+ * Stochastic gradient descent (often shortened in SGD), also known as incremental gradient descent, is a
+ * stochastic approximation of the gradient descent optimization method for minimizing an objective function
+ * that is written as a sum of differentiable functions. In other words, SGD tries to find minimums or
+ * maximums by iteration.
+ *
+ * @author Daniel Persson (mailto.woden@gmail.com)
  */
+
 public class SGDTrainer extends Trainer {
 
     public SGDTrainer(JavaCNN net, int batch_size, float l2_decay) {

@@ -6,8 +6,12 @@ import org.ea.javacnn.data.BackPropResult;
 import java.util.Arrays;
 
 /**
- * Created by danielp on 2/3/17.
+ * Adaptive Moment Estimation is an update to RMSProp optimizer. In this running average of both the
+ * gradients and their magnitudes are used.
+ *
+ * @author Daniel Persson (mailto.woden@gmail.com)
  */
+
 public class AdamTrainer extends Trainer {
     private final double beta1 = 0.9;
     private final double beta2 = 0.999;

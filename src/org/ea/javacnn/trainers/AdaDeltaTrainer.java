@@ -6,7 +6,9 @@ import org.ea.javacnn.data.BackPropResult;
 import java.util.Arrays;
 
 /**
- * Created by danielp on 2/3/17.
+ * Adaptive delta will look at the differences between the expected result and the current result to train the network.
+ *
+ * @author Daniel Persson (mailto.woden@gmail.com)
  */
 public class AdaDeltaTrainer extends Trainer {
     private final double ro = 0.95;

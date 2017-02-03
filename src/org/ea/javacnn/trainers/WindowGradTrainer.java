@@ -3,8 +3,13 @@ package org.ea.javacnn.trainers;
 import org.ea.javacnn.JavaCNN;
 
 /**
- * Created by danielp on 2/3/17.
+ * This is AdaGrad but with a moving window weighted average
+ * so the gradient is not accumulated over the entire history of the run.
+ * it's also referred to as Idea #1 in Zeiler paper on AdaDelta.
+ *
+ * @author Daniel Persson (mailto.woden@gmail.com)
  */
+
 public class WindowGradTrainer extends Trainer {
     private final double ro = 0.95;
 

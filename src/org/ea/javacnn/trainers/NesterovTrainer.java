@@ -3,8 +3,11 @@ package org.ea.javacnn.trainers;
 import org.ea.javacnn.JavaCNN;
 
 /**
- * Created by danielp on 2/3/17.
+ * Another extension of gradient descent is due to Yurii Nesterov from 1983,[7] and has been subsequently generalized
+ *
+ * @author Daniel Persson (mailto.woden@gmail.com)
  */
+
 public class NesterovTrainer extends Trainer {
 
     public NesterovTrainer(JavaCNN net, int batch_size, float l2_decay) {
