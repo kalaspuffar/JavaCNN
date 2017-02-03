@@ -1,4 +1,4 @@
-# JavaCNN (Work in progress)
+# Convolutional Neural Network written in Java
 
 This project tries to rewrite the [ConvNetJS](https://github.com/karpathy/convnetjs) system built in Javascript.
 
@@ -34,6 +34,21 @@ This layer will reduce the dataset by creating a smaller zoomed out version. In 
 
 ##### FullyConnectedLayer
 Neurons in a fully connected layer have full connections to all activations in the previous layer, as seen in regular Neural Networks. Their activations can hence be computed with a matrix multiplication followed by a bias offset.
+
+##### DropoutLayer
+This layer will remove some random activations in order to defeat over-fitting.
+
+##### MaxoutLayer
+Implements Maxout nonlinearity that computes x -> max(x) where x is a vector of size group_size. Ideally of course, the input size should be exactly divisible by group_size
+
+##### ReluLayer
+Implements ReLU nonlinearity elementwise x -> max(0, x) the output is in [0, inf)
+
+##### SigmoidLayer
+Implements Sigmoid nonlinearity elementwise x -> 1/(1+e^(-x)) so the output is between 0 and 1.
+
+##### TanhLayer
+Implements Tanh nonlinearity elementwise x -> tanh(x) so the output is between -1 and 1.
 
 #### Loss layers
 

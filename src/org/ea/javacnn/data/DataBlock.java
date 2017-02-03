@@ -88,6 +88,10 @@ public class DataBlock {
 
     public double getGradient(int x, int y, int depth) {
         int ix = ((this.sx * y) + x) * this.depth + depth;
+        return getGradient(ix);
+    }
+
+    public double getGradient(int ix) {
         return this.dw[ix];
     }
 
@@ -113,6 +117,11 @@ public class DataBlock {
     public void subGradient(int ix, double val) {
         this.dw[ix] -= val;
     }
+
+    public void mulGradient(int ix, double val) {
+        this.dw[ix] *= val;
+    }
+
 
     public DataBlock cloneAndZero() {
         return new DataBlock(this.sx, this.sy, this.depth, 0.0);
