@@ -35,8 +35,16 @@ This layer will reduce the dataset by creating a smaller zoomed out version. In 
 #### FullyConnectedLayer
 Neurons in a fully connected layer have full connections to all activations in the previous layer, as seen in regular Neural Networks. Their activations can hence be computed with a matrix multiplication followed by a bias offset.
 
+### Loss layers
+
 #### SoftMaxLayer
 This layer will squash the result of the activations in the fully connected layer and give you a value of 0 to 1 for all output activations.
+
+#### SVMLayer
+This layer uses the input area trying to find a line to seperate the correct activation from the incorrect ones.
+
+#### RegressionLayer
+Regression layer is used when your output is an area of data. When you don't have a single class that is the correct activation but you try to find a result set near to your training area.
 
 ### Trainers
 Trainers take the generated output of activations and gradients in order to modify the weights in the network to make a better prediction the next time the network runs with a data block.
