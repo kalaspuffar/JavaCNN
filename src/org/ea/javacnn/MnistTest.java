@@ -5,8 +5,7 @@ import org.ea.javacnn.data.OutputDefinition;
 import org.ea.javacnn.data.TrainResult;
 import org.ea.javacnn.layers.*;
 import org.ea.javacnn.readers.MnistReader;
-import org.ea.javacnn.trainers.AdaGradTrainer;
-import org.ea.javacnn.trainers.Trainer;
+import org.ea.javacnn.trainers.*;
 
 import java.util.ArrayList;
 import java.util.Arrays;
