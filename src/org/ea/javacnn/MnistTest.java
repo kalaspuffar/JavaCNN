@@ -4,6 +4,7 @@ import org.ea.javacnn.data.DataBlock;
 import org.ea.javacnn.data.OutputDefinition;
 import org.ea.javacnn.data.TrainResult;
 import org.ea.javacnn.layers.*;
+import org.ea.javacnn.losslayers.SoftMaxLayer;
 import org.ea.javacnn.readers.MnistReader;
 import org.ea.javacnn.trainers.*;
 
@@ -33,7 +34,7 @@ public class MnistTest {
         layers.add(new SoftMaxLayer(def, 10));
 
         JavaCNN net = new JavaCNN(layers);
-        Trainer trainer = new AdaGradTrainer(net, 20, 0.001f);
+        Trainer trainer = new AdaDeltaTrainer(net, 20, 0.001f);
 
         MnistReader mr = new MnistReader("mnist/train-labels-idx1-ubyte", "mnist/train-images-idx3-ubyte");
         MnistReader mrTest = new MnistReader("mnist/t10k-labels-idx1-ubyte", "mnist/t10k-images-idx3-ubyte");

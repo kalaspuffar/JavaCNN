@@ -1,4 +1,4 @@
-package org.ea.javacnn.layers;
+package org.ea.javacnn.losslayers;
 
 import org.ea.javacnn.data.BackPropResult;
 import org.ea.javacnn.data.DataBlock;
@@ -21,7 +21,8 @@ public class SoftMaxLayer extends LossLayer {
 
     private double[] es;
 
-    public SoftMaxLayer(OutputDefinition def, int num_classes) {
+    public SoftMaxLayer(OutputDefinition def) {
+        super(def);
         // computed
         this.num_inputs = def.getOutY() * def.getOutX() * def.getDepth();
         this.out_depth = this.num_inputs;
@@ -82,15 +83,5 @@ public class SoftMaxLayer extends LossLayer {
 
         // loss is the class negative log likelihood
         return -Math.log(this.es[y]);
-    }
-
-    @Override
-    public List<BackPropResult> getBackPropagationResult() {
-        return new ArrayList<BackPropResult>();
-    }
-
-    @Override
-    public DataBlock getOutAct() {
-        return this.out_act;
     }
 }

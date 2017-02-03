@@ -3,7 +3,7 @@ package org.ea.javacnn;
 import org.ea.javacnn.data.BackPropResult;
 import org.ea.javacnn.data.DataBlock;
 import org.ea.javacnn.layers.Layer;
-import org.ea.javacnn.layers.LossLayer;
+import org.ea.javacnn.losslayers.LossLayer;
 
 import java.util.ArrayList;
 import java.util.List;

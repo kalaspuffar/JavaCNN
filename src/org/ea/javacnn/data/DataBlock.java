@@ -110,6 +110,10 @@ public class DataBlock {
         this.dw[ix] += val;
     }
 
+    public void subGradient(int ix, double val) {
+        this.dw[ix] -= val;
+    }
+
     public DataBlock cloneAndZero() {
         return new DataBlock(this.sx, this.sy, this.depth, 0.0);
     }
