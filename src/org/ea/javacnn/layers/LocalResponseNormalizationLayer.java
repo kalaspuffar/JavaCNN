@@ -8,9 +8,17 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * This layer normalize the result from the convolution layer so all
- * weight values are positive, this will help the learning process and
- * shape the result.
+ * This layer is useful when we are dealing with ReLU neurons. Why is that?
+ * Because ReLU neurons have unbounded activations and we need LRN to normalize
+ * that. We want to detect high frequency features with a large response. If we
+ * normalize around the local neighborhood of the excited neuron, it becomes even
+ * more sensitive as compared to its neighbors.
+ *
+ * At the same time, it will dampen the responses that are uniformly large in any
+ * given local neighborhood. If all the values are large, then normalizing those
+ * values will diminish all of them. So basically we want to encourage some kind
+ * of inhibition and boost the neurons with relatively larger activations. This
+ * has been discussed nicely in Section 3.3 of the original paper by Krizhevsky et al.
  *
  * @author Daniel Persson (mailto.woden@gmail.com)
  */

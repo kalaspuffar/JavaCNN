@@ -8,12 +8,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Implements ReLU nonlinearity elementwise x -> max(0, x)
- * the output is in [0, inf)
+ * This is a layer of neurons that applies the non-saturating activation
+ * function f(x)=max(0,x). It increases the nonlinear properties of the
+ * decision function and of the overall network without affecting the
+ * receptive fields of the convolution layer.
  *
  * @author Daniel Persson (mailto.woden@gmail.com)
  */
-public class ReluLayer implements Layer{
+public class RectifiedLinearUnitsLayer implements Layer{
     private DataBlock in_act, out_act;
 
     @Override
