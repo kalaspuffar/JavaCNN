@@ -27,7 +27,9 @@ The input layer is a simple layer that will pass the data though and create a wi
 This layer uses different filters to find attributes of the data that affects the result. As an example there could be a filter to find horizontal edges in an image.
 
 ##### LocalResponseNormalizationLayer
-This layer normalize the result from the convolution layer so all weight values are positive, this will help the learning process and shape the result.
+This layer is useful when we are dealing with ReLU neurons. Why is that? Because ReLU neurons have unbounded activations and we need LRN to normalize that. We want to detect high frequency features with a large response. If we normalize around the local neighborhood of the excited neuron, it becomes even more sensitive as compared to its neighbors.
+
+At the same time, it will dampen the responses that are uniformly large in any given local neighborhood. If all the values are large, then normalizing those values will diminish all of them. So basically we want to encourage some kind of inhibition and boost the neurons with relatively larger activations. This has been discussed nicely in Section 3.3 of the original paper by Krizhevsky et al.
 
 ##### PoolingLayer
 This layer will reduce the dataset by creating a smaller zoomed out version. In essence you take a cluster of pixels take the sum of them and put the result in the reduced position of the new image.
@@ -41,8 +43,8 @@ This layer will remove some random activations in order to defeat over-fitting.
 ##### MaxoutLayer
 Implements Maxout nonlinearity that computes x -> max(x) where x is a vector of size group_size. Ideally of course, the input size should be exactly divisible by group_size
 
-##### ReluLayer
-Implements ReLU nonlinearity elementwise x -> max(0, x) the output is in [0, inf)
+##### RectifiedLinearUnitsLayer
+This is a layer of neurons that applies the non-saturating activation function f(x)=max(0,x). It increases the nonlinear properties of the decision function and of the overall network without affecting the receptive fields of the convolution layer.
 
 ##### SigmoidLayer
 Implements Sigmoid nonlinearity elementwise x -> 1/(1+e^(-x)) so the output is between 0 and 1.
