@@ -31,10 +31,10 @@ public class MnistTest {
         layers.add(new LocalResponseNormalizationLayer(def));
         layers.add(new PoolingLayer(def, 3,3, 0));
         layers.add(new FullyConnectedLayer(def, 10));
-        layers.add(new SoftMaxLayer(def, 10));
+        layers.add(new SoftMaxLayer(def));
 
         JavaCNN net = new JavaCNN(layers);
-        Trainer trainer = new AdaDeltaTrainer(net, 20, 0.001f);
+        Trainer trainer = new WindowGradTrainer(net, 20, 0.001f);
 
         MnistReader mr = new MnistReader("mnist/train-labels-idx1-ubyte", "mnist/train-images-idx3-ubyte");
         MnistReader mrTest = new MnistReader("mnist/t10k-labels-idx1-ubyte", "mnist/t10k-images-idx3-ubyte");

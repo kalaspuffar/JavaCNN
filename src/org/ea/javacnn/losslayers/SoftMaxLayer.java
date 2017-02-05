@@ -15,9 +15,7 @@ import java.util.List;
  * @author Daniel Persson (mailto.woden@gmail.com)
  */
 public class SoftMaxLayer extends LossLayer {
-
     private int num_inputs, out_depth, out_sx, out_sy;
-    private DataBlock in_act, out_act;
 
     private double[] es;
 
