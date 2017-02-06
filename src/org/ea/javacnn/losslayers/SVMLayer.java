@@ -5,7 +5,7 @@ import org.ea.javacnn.data.OutputDefinition;
 
 /**
  * This layer uses the input area trying to find a line to
- * seperate the correct activation from the incorrect ones.
+ * separate the correct activation from the incorrect ones.
  *
  * @author Daniel Persson (mailto.woden@gmail.com)
  */

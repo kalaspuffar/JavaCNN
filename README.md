@@ -58,7 +58,7 @@ Implements Tanh nonlinearity elementwise x -> tanh(x) so the output is between -
 This layer will squash the result of the activations in the fully connected layer and give you a value of 0 to 1 for all output activations.
 
 ##### SVMLayer
-This layer uses the input area trying to find a line to seperate the correct activation from the incorrect ones.
+This layer uses the input area trying to find a line to separate the correct activation from the incorrect ones.
 
 ##### RegressionLayer
 Regression layer is used when your output is an area of data. When you don't have a single class that is the correct activation but you try to find a result set near to your training area.
