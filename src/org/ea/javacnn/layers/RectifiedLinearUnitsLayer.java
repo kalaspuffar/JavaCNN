@@ -15,7 +15,7 @@ import java.util.List;
  *
  * @author Daniel Persson (mailto.woden@gmail.com)
  */
-public class RectifiedLinearUnitsLayer implements Layer{
+public class RectifiedLinearUnitsLayer implements Layer {
     private DataBlock in_act, out_act;
 
     @Override

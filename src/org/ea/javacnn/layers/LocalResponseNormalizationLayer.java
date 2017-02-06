@@ -23,7 +23,6 @@ import java.util.List;
  * @author Daniel Persson (mailto.woden@gmail.com)
  */
 public class LocalResponseNormalizationLayer implements Layer {
-    private int out_depth, out_sx, out_sy;
 
     /*
      The constants k, n, alpha and beta are hyper-parameters whose
@@ -40,12 +39,7 @@ public class LocalResponseNormalizationLayer implements Layer {
 
     private DataBlock in_act, out_act, S_cache_;
 
-    public LocalResponseNormalizationLayer(OutputDefinition def) {
-        // computed
-        this.out_sx = def.getOutX();
-        this.out_sy = def.getOutY();
-        this.out_depth = def.getDepth();
-
+    public LocalResponseNormalizationLayer() {
         // checks
         if(this.n%2 == 0) {
             System.out.println("WARNING n should be odd for LRN layer");

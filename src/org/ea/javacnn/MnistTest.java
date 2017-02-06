@@ -25,16 +25,16 @@ public class MnistTest {
         OutputDefinition def = new OutputDefinition();
         layers.add(new InputLayer(def, 24, 24, 1));
         layers.add(new ConvolutionLayer(def, 5, 8, 1, 2));
-        layers.add(new LocalResponseNormalizationLayer(def));
+        layers.add(new RectifiedLinearUnitsLayer());
         layers.add(new PoolingLayer(def, 2, 2, 0));
         layers.add(new ConvolutionLayer(def, 5, 16, 1, 2));
-        layers.add(new LocalResponseNormalizationLayer(def));
+        layers.add(new RectifiedLinearUnitsLayer());
         layers.add(new PoolingLayer(def, 3,3, 0));
         layers.add(new FullyConnectedLayer(def, 10));
         layers.add(new SoftMaxLayer(def));
 
         JavaCNN net = new JavaCNN(layers);
-        Trainer trainer = new WindowGradTrainer(net, 20, 0.001f);
+        Trainer trainer = new AdaGradTrainer(net, 20, 0.001f);
 
         MnistReader mr = new MnistReader("mnist/train-labels-idx1-ubyte", "mnist/train-images-idx3-ubyte");
         MnistReader mrTest = new MnistReader("mnist/t10k-labels-idx1-ubyte", "mnist/t10k-images-idx3-ubyte");
