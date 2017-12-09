@@ -75,7 +75,7 @@ public class ImageReader implements Reader {
         String filename = filenames.get(currentImage);
         try {
             BufferedImage orgImg = ImageIO.read(new File(imagePath, filename));
-            BufferedImage newImg = new BufferedImage(imageSizeX, imageSizeY, BufferedImage.TYPE_BYTE_INDEXED);
+            BufferedImage newImg = new BufferedImage(imageSizeX, imageSizeY, BufferedImage.TYPE_BYTE_GRAY);
             Graphics g = newImg.getGraphics();
             g.drawImage(orgImg, 0, 0, null);
 
@@ -145,7 +145,7 @@ public class ImageReader implements Reader {
             int[] b = mr.readNextImage();
             for(int j=0; j<b.length; j++) {
                 if(j % mr.getSizeX() == 0) System.out.println();
-                System.out.print((b[j] & 0xFF) + " ");
+                System.out.print(b[j] + " ");
             }
         } catch (Exception e) {
             e.printStackTrace();

@@ -169,7 +169,7 @@ public class PGMReader implements Reader {
             int[] b = mr.readNextImage();
             for(int j=0; j<b.length; j++) {
                 if(j % mr.getSizeX() == 0) System.out.println();
-                System.out.print((b[j] & 0xFF) + " ");
+                System.out.print(b[j] + " ");
             }
         } catch (Exception e) {
             e.printStackTrace();

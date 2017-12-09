@@ -27,9 +27,9 @@ public class MnistTest {
         List<Layer> layers = new ArrayList<Layer>();
         OutputDefinition def = new OutputDefinition();
 
-        Reader mr = new MnistReader("mnist/train-labels-idx1-ubyte", "mnist/train-images-idx3-ubyte");
+//        Reader mr = new MnistReader("mnist/train-labels-idx1-ubyte", "mnist/train-images-idx3-ubyte");
 //        Reader mr = new PGMReader("pgmfiles/train");
-//        Reader mr = new ImageReader("pngfiles/train");
+        Reader mr = new ImageReader("pngfiles/train");
 
         layers.add(new InputLayer(def, mr.getSizeX(), mr.getSizeY(), 1));
         layers.add(new ConvolutionLayer(def, 5, 32, 1, 2));
@@ -60,9 +60,9 @@ public class MnistTest {
         JavaCNN net = new JavaCNN(layers);
         Trainer trainer = new AdaGradTrainer(net, 20, 0.001f);
 
-        Reader mrTest = new MnistReader("mnist/t10k-labels-idx1-ubyte", "mnist/t10k-images-idx3-ubyte");
+        //Reader mrTest = new MnistReader("mnist/t10k-labels-idx1-ubyte", "mnist/t10k-images-idx3-ubyte");
         //Reader mrTest = new PGMReader("pgmfiles/test");
-        //Reader mrTest = new ImageReader("pngfiles/test");
+        Reader mrTest = new ImageReader("pngfiles/test");
 
         try {
             long start = System.currentTimeMillis();
