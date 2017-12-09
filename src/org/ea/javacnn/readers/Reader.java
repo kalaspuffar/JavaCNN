@@ -2,7 +2,7 @@ package org.ea.javacnn.readers;
 
 public interface Reader {
     int readNextLabel();
-    byte[] readNextImage() throws Exception;
+    int[] readNextImage() throws Exception;
     void reset();
     int size();
     int numOfClasses();

@@ -78,11 +78,11 @@ public class PGMReader implements Reader {
     }
 
     @Override
-    public byte[] readNextImage() throws Exception {
+    public int[] readNextImage() throws Exception {
         if(readImage) {
             incrementCounter();
         }
-        if(currentImage >= this.size()) return new byte[0];
+        if(currentImage >= this.size()) return new int[0];
 
         String filename = filenames.get(currentImage);
 
@@ -100,11 +100,9 @@ public class PGMReader implements Reader {
                 numNewlines--;
             }
             // read the image data
-            byte[] returnData = new byte[imageSizeX * imageSizeY];
-            for (int row = 0; row < imageSizeY; row++) {
-                for (int col = 0; col < imageSizeX; col++) {
-                    returnData[(row * imageSizeX) + col] = (byte)(dis.readUnsignedByte() & 0xFF);
-                }
+            int[] returnData = new int[imageSizeX * imageSizeY];
+            for (int i = 0; i < imageSizeX * imageSizeY; i++) {
+                returnData[i] = dis.readUnsignedByte();
             }
 
             if(readLabel) {
@@ -168,7 +166,7 @@ public class PGMReader implements Reader {
 
         mr.reset();
         try {
-            byte[] b = mr.readNextImage();
+            int[] b = mr.readNextImage();
             for(int j=0; j<b.length; j++) {
                 if(j % mr.getSizeX() == 0) System.out.println();
                 System.out.print((b[j] & 0xFF) + " ");

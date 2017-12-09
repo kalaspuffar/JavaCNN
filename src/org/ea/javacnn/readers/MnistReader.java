@@ -2,6 +2,8 @@ package org.ea.javacnn.readers;
 
 import java.io.FileInputStream;
 import java.nio.ByteBuffer;
+import java.nio.ByteOrder;
+import java.nio.IntBuffer;
 import java.util.Arrays;
 import java.util.zip.GZIPInputStream;
 
@@ -93,11 +95,17 @@ public class MnistReader implements Reader {
     }
 
     @Override
-    public byte[] readNextImage() throws Exception {
-        byte[] imageArray = new byte[imageX * imageY];
+    public int[] readNextImage() throws Exception {
+        int size = imageX * imageY;
+        byte[] imageArray = new byte[size];
         Arrays.fill(imageArray, (byte)0);
-        imageIO.read(imageArray, 0, imageX * imageY);
-        return imageArray;
+        imageIO.read(imageArray, 0, size);
+        int[] imageInts = new int[size];
+        for(int i=0; i<size; i++) {
+            imageInts[i] = imageArray[i];
+        }
+
+        return imageInts;
     }
 
     public static void main(String[] argv) {
@@ -118,7 +126,7 @@ public class MnistReader implements Reader {
         }
 
         try {
-            byte[] b = mr.readNextImage();
+            int[] b = mr.readNextImage();
             for(int j=0; j<b.length; j++) {
                 if(j % 28 == 0) System.out.println();
                 System.out.print((b[j] & 0xFF) + " ");

@@ -5,6 +5,7 @@ import org.ea.javacnn.data.OutputDefinition;
 import org.ea.javacnn.data.TrainResult;
 import org.ea.javacnn.layers.*;
 import org.ea.javacnn.losslayers.SoftMaxLayer;
+import org.ea.javacnn.readers.ImageReader;
 import org.ea.javacnn.readers.MnistReader;
 import org.ea.javacnn.readers.PGMReader;
 import org.ea.javacnn.readers.Reader;
@@ -28,6 +29,7 @@ public class MnistTest {
 
         Reader mr = new MnistReader("mnist/train-labels-idx1-ubyte", "mnist/train-images-idx3-ubyte");
 //        Reader mr = new PGMReader("pgmfiles/train");
+//        Reader mr = new ImageReader("pngfiles/train");
 
         layers.add(new InputLayer(def, mr.getSizeX(), mr.getSizeY(), 1));
         layers.add(new ConvolutionLayer(def, 5, 32, 1, 2));
@@ -60,6 +62,7 @@ public class MnistTest {
 
         Reader mrTest = new MnistReader("mnist/t10k-labels-idx1-ubyte", "mnist/t10k-images-idx3-ubyte");
         //Reader mrTest = new PGMReader("pgmfiles/test");
+        //Reader mrTest = new ImageReader("pngfiles/test");
 
         try {
             long start = System.currentTimeMillis();
