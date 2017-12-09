@@ -6,6 +6,8 @@ import org.ea.javacnn.data.TrainResult;
 import org.ea.javacnn.layers.*;
 import org.ea.javacnn.losslayers.SoftMaxLayer;
 import org.ea.javacnn.readers.MnistReader;
+import org.ea.javacnn.readers.PGMReader;
+import org.ea.javacnn.readers.Reader;
 import org.ea.javacnn.trainers.*;
 
 import java.util.ArrayList;
@@ -23,21 +25,41 @@ public class MnistTest {
     public static void main(String[] argv) {
         List<Layer> layers = new ArrayList<Layer>();
         OutputDefinition def = new OutputDefinition();
-        layers.add(new InputLayer(def, 24, 24, 1));
-        layers.add(new ConvolutionLayer(def, 5, 8, 1, 2));
+
+        Reader mr = new MnistReader("mnist/train-labels-idx1-ubyte", "mnist/train-images-idx3-ubyte");
+//        Reader mr = new PGMReader("pgmfiles/train");
+
+        layers.add(new InputLayer(def, mr.getSizeX(), mr.getSizeY(), 1));
+        layers.add(new ConvolutionLayer(def, 5, 32, 1, 2));
         layers.add(new RectifiedLinearUnitsLayer());
-        layers.add(new PoolingLayer(def, 2, 2, 0));
-        layers.add(new ConvolutionLayer(def, 5, 16, 1, 2));
+        layers.add(new PoolingLayer(def, 2,2, 0));
+        layers.add(new ConvolutionLayer(def, 5, 64, 1, 2));
         layers.add(new RectifiedLinearUnitsLayer());
-        layers.add(new PoolingLayer(def, 3,3, 0));
-        layers.add(new FullyConnectedLayer(def, 10));
+        layers.add(new PoolingLayer(def, 2,2, 0));
+        layers.add(new FullyConnectedLayer(def, 1024));
+        layers.add(new LocalResponseNormalizationLayer());
+        layers.add(new DropoutLayer(def));
+        layers.add(new FullyConnectedLayer(def, mr.numOfClasses()));
         layers.add(new SoftMaxLayer(def));
 
+
+        /*
+        layers.add(new InputLayer(def, mr.getSizeX(), mr.getSizeY(), 1));
+        layers.add(new FullyConnectedLayer(def, 500));
+        layers.add(new SoftMaxLayer(def));
+        layers.add(new FullyConnectedLayer(def, 500));
+        layers.add(new SoftMaxLayer(def));
+        layers.add(new FullyConnectedLayer(def, 500));
+        layers.add(new SoftMaxLayer(def));
+        layers.add(new DropoutLayer(def));
+        layers.add(new FullyConnectedLayer(def, 2));
+        layers.add(new SoftMaxLayer(def));
+        */
         JavaCNN net = new JavaCNN(layers);
         Trainer trainer = new AdaGradTrainer(net, 20, 0.001f);
 
-        MnistReader mr = new MnistReader("mnist/train-labels-idx1-ubyte", "mnist/train-images-idx3-ubyte");
-        MnistReader mrTest = new MnistReader("mnist/t10k-labels-idx1-ubyte", "mnist/t10k-images-idx3-ubyte");
+        Reader mrTest = new MnistReader("mnist/t10k-labels-idx1-ubyte", "mnist/t10k-images-idx3-ubyte");
+        //Reader mrTest = new PGMReader("pgmfiles/test");
 
         try {
             long start = System.currentTimeMillis();
@@ -46,11 +68,11 @@ public class MnistTest {
             int[] correctPredictions = new int[10];
 
             TrainResult tr = null;
-            DataBlock db = new DataBlock(28, 28, 1, 0);
+            DataBlock db = new DataBlock(mr.getSizeX(), mr.getSizeY(), 1, 0);
             for(int j = 1; j < 501; j++) {
                 double loss = 0;
                 for (int i = 0; i < mr.size(); i++) {
-                    db.addImageData(mr.readNextImage());
+                    db.addImageData(mr.readNextImage(), mr.getMaxvalue());
                     tr = trainer.train(db, mr.readNextLabel());
                     loss += tr.getLoss();
                     if (i != 0 && i % 1000 == 0) {
@@ -66,14 +88,14 @@ public class MnistTest {
                 if(j != 1) {
                     System.out.println("Last run:");
                     System.out.println("=================================");
-                    printPredictions(correctPredictions, numberDistribution, mrTest.size());
+                    printPredictions(correctPredictions, numberDistribution, mrTest.size(), mrTest.numOfClasses());
                 }
 
                 start = System.currentTimeMillis();
                 Arrays.fill(correctPredictions, 0);
                 Arrays.fill(numberDistribution, 0);
                 for(int i=0; i<mrTest.size(); i++) {
-                    db.addImageData(mrTest.readNextImage());
+                    db.addImageData(mrTest.readNextImage(), mr.getMaxvalue());
                     net.forward(db, false);
                     int correct = mrTest.readNextLabel();
                     int prediction = net.getPrediction();
@@ -85,7 +107,7 @@ public class MnistTest {
 
                 System.out.println("Current run:");
                 System.out.println("=================================");
-                printPredictions(correctPredictions, numberDistribution, mrTest.size());
+                printPredictions(correctPredictions, numberDistribution, mrTest.size(), mrTest.numOfClasses());
                 start = System.currentTimeMillis();
             }
         } catch (Exception e) {
@@ -93,9 +115,9 @@ public class MnistTest {
         }
     }
 
-    private static void printPredictions(int[] correctPredictions, int[] numberDistribution, int totalSize) {
+    private static void printPredictions(int[] correctPredictions, int[] numberDistribution, int totalSize, int numOfClasses) {
         int sumCorrectPredictions = 0;
-        for (int i = 0; i < 10; i++) {
+        for (int i = 0; i < numOfClasses; i++) {
             StringBuilder sb = new StringBuilder();
             sb.append("Number ");
             sb.append(i);

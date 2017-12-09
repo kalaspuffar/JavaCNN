@@ -44,10 +44,10 @@ public class DataBlock {
         Arrays.fill(this.dw, 0);
     }
 
-    public void addImageData(byte[] imgData) {
+    public void addImageData(byte[] imgData, int maxvalue) {
         // prepare the input: get pixels and normalize them
         for(int i=0;i<imgData.length;i++) {
-            w[i] = imgData[i]/255.0-0.5; // normalize image pixels to [-0.5, 0.5]
+            w[i] = ((imgData[i] & 0xff)/(float)maxvalue)-0.5; // normalize image pixels to [-0.5, 0.5]
         }
     }
 

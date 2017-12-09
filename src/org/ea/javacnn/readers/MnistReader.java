@@ -5,7 +5,7 @@ import java.nio.ByteBuffer;
 import java.util.Arrays;
 import java.util.zip.GZIPInputStream;
 
-public class MnistReader {
+public class MnistReader implements Reader {
     private String labelFile;
     private String imageFile;
 
@@ -17,13 +17,14 @@ public class MnistReader {
     private int imageX;
     private int imageY;
 
-    public int readInt(FileInputStream is) throws Exception {
+    private int readInt(FileInputStream is) throws Exception {
         byte[] int32Full = new byte[4];
         is.read(int32Full);
         ByteBuffer wrapped = ByteBuffer.wrap(int32Full);
         return wrapped.getInt();
     }
 
+    @Override
     public int size() {
         return imageSize;
     }
@@ -52,6 +53,16 @@ public class MnistReader {
         }
     }
 
+    @Override
+    public int getMaxvalue() {
+        return 255;
+    }
+
+    public int numOfClasses() {
+        return 10;
+    }
+
+    @Override
     public void reset() {
         try {
             labelIO.close();
@@ -71,6 +82,7 @@ public class MnistReader {
         }
     }
 
+    @Override
     public int readNextLabel() {
         try {
             return labelIO.read();
@@ -80,6 +92,7 @@ public class MnistReader {
         return -1;
     }
 
+    @Override
     public byte[] readNextImage() throws Exception {
         byte[] imageArray = new byte[imageX * imageY];
         Arrays.fill(imageArray, (byte)0);
@@ -88,7 +101,7 @@ public class MnistReader {
     }
 
     public static void main(String[] argv) {
-        MnistReader mr = new MnistReader("mnist/t10k-labels.idx1-ubyte", "mnist/t10k-images.idx3-ubyte");
+        Reader mr = new MnistReader("mnist/t10k-labels.idx1-ubyte", "mnist/t10k-images.idx3-ubyte");
 
         for(int i=0; i<200; i++) {
             System.out.print(mr.readNextLabel());
@@ -113,6 +126,15 @@ public class MnistReader {
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
 
+    @Override
+    public int getSizeX() {
+        return imageX;
+    }
+
+    @Override
+    public int getSizeY() {
+        return imageY;
     }
 }

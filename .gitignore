@@ -3,6 +3,9 @@
 # Mobile Tools for Java (J2ME)
 .mtj.tmp/
 mnist
+pgmfiles
+pngfiles
+stat
 
 # Package Files #
 *.jar
