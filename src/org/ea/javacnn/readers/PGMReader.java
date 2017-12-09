@@ -13,6 +13,7 @@ public class PGMReader implements Reader {
     private boolean readLabel = false;
     private boolean readImage = false;
     private int currentImage = 0;
+    private int headerSize = 0;
 
     public PGMReader(String imagePath) {
         this.imagePath = imagePath;
@@ -47,6 +48,7 @@ public class PGMReader implements Reader {
                 } else {
                     throw new Exception("Unsupported file format");
                 }
+                headerSize++;
                 if (maxvalue != -1 && foundHeader && imageSizeX != -1) break;
             }
 
@@ -90,8 +92,8 @@ public class PGMReader implements Reader {
             // Now parse the file as binary data
             FileInputStream fis = new FileInputStream(new File(imagePath, filename));
             DataInputStream dis = new DataInputStream(fis);
-            // look for 4 lines (i.e.: the header) and discard them
-            int numNewlines = 3;
+            // look for lines containing the header and discard them
+            int numNewlines = headerSize;
             while (numNewlines > 0) {
                 char c;
                 do {
