@@ -79,8 +79,8 @@ public class ImageReader implements Reader {
             Graphics g = newImg.getGraphics();
             g.drawImage(orgImg, 0, 0, null);
 
-            int[] imageData = new int[imageSizeY * imageSizeY];
-            imageData = newImg.getData().getPixels(0, 0, imageSizeY, imageSizeY, imageData);
+            int[] imageData = new int[imageSizeX * imageSizeY];
+            imageData = newImg.getData().getPixels(0, 0, imageSizeX, imageSizeY, imageData);
             if(readLabel) {
                 incrementCounter();
             } else {
