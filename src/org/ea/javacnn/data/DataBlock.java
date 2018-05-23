@@ -5,6 +5,7 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.util.Arrays;
 import java.util.Random;
+import java.io.Serializable;
 
 /**
  * Holding all the data handled by the network. So a layer will receive
@@ -13,7 +14,7 @@ import java.util.Random;
  *
  * @author Daniel Persson (mailto.woden@gmail.com)
  */
-public class DataBlock {
+public class DataBlock implements Serializable {
     private int sx;
     private int sy;
     private int depth;

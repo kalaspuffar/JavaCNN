@@ -50,6 +50,14 @@ public class ImageReader implements Reader {
         readImage = false;
     }
 
+    /**
+    * Get labels  
+    **/
+    public List<String> getLabels() {
+        return labels;
+    }
+
+
     @Override
     public int readNextLabel() {
         if(readLabel) {

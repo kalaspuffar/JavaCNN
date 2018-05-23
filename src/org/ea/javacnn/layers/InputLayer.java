@@ -3,7 +3,7 @@ package org.ea.javacnn.layers;
 import org.ea.javacnn.data.BackPropResult;
 import org.ea.javacnn.data.DataBlock;
 import org.ea.javacnn.data.OutputDefinition;
-
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -18,7 +18,7 @@ import java.util.List;
  *
  * @author Daniel Persson (mailto.woden@gmail.com)
  */
-public class InputLayer implements Layer {
+public class InputLayer implements Layer,Serializable {
     private DataBlock in_act;
     private DataBlock out_act;
 

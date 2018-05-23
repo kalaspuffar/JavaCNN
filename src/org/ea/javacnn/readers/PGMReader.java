@@ -125,9 +125,21 @@ public class PGMReader implements Reader {
         readImage = false;
     }
 
+    /**
+    * Get number of classes  
+    **/
     public int numOfClasses() {
         return labels.size();
     }
+
+
+    /**
+    * Get labels  
+    **/ 
+    public List<String> getLabels() {
+        return labels;
+    }
+
 
     @Override
     public int size() {

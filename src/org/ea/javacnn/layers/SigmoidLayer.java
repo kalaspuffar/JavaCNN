@@ -3,17 +3,17 @@ package org.ea.javacnn.layers;
 import org.ea.javacnn.data.BackPropResult;
 import org.ea.javacnn.data.DataBlock;
 import org.ea.javacnn.data.OutputDefinition;
-
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Implements Sigmoid nonlinearity elementwise x -> 1/(1+e^(-x))
+ * Implements Sigmoid nonlinearity elementwise x to 1/(1+e^(-x))
  * so the output is between 0 and 1.
  *
  * @author Daniel Persson (mailto.woden@gmail.com)
  */
-public class SigmoidLayer implements Layer {
+public class SigmoidLayer implements Layer, Serializable {
 
     private DataBlock in_act, out_act;
 
