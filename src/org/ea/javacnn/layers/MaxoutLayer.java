@@ -3,19 +3,19 @@ package org.ea.javacnn.layers;
 import org.ea.javacnn.data.BackPropResult;
 import org.ea.javacnn.data.DataBlock;
 import org.ea.javacnn.data.OutputDefinition;
-
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
 /**
- * Implements Maxout nonlinearity that computes x -> max(x)
+ * Implements Maxout nonlinearity that computes x to max(x)
  * where x is a vector of size group_size. Ideally of course,
  * the input size should be exactly divisible by group_size
  *
  * @author Daniel Persson (mailto.woden@gmail.com)
  */
-public class MaxoutLayer implements Layer {
+public class MaxoutLayer implements Layer,Serializable {
     private int out_depth, out_sx, out_sy;
 
     private DataBlock in_act, out_act;

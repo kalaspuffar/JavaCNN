@@ -3,7 +3,7 @@ package org.ea.javacnn.layers;
 import org.ea.javacnn.data.BackPropResult;
 import org.ea.javacnn.data.DataBlock;
 import org.ea.javacnn.data.OutputDefinition;
-
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -14,7 +14,7 @@ import java.util.List;
  *
  * @author Daniel Persson (mailto.woden@gmail.com)
  */
-public class ConvolutionLayer implements Layer {
+public class ConvolutionLayer implements Layer,Serializable {
     private double l1_decay_mul = 0.0;
     private double l2_decay_mul = 1.0;
 
